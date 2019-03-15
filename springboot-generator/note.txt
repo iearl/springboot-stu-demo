@@ -1,0 +1,29 @@
+使用需要修改的点
+1.generatorConfig.xml 修改数据库连接配置
+    <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                    connectionURL="jdbc:mysql://127.0.0.1:3306/security?useSSL=true"
+                    userId="root"
+                    password="123456">
+    jdbc:mysql://127.0.0.1:3306/security?useSSL=true url配置避免警告--Establishing SSL connection
+
+    <!--指定entity生成的位置-->
+    <javaModelGenerator targetPackage="xxx.xxx.xxx.entity" targetProject="./src/main/java">
+        <property name="enableSubPackages" value="true" />
+        <property name="trimStrings" value="true" />
+    </javaModelGenerator>
+
+    <!--指定DaoMapper生成的位置 mapper.java-->
+    <javaClientGenerator type="XMLMAPPER" targetPackage="xxx.xxx.xxx..mapper" targetProject="./src/main/java">
+        <property name="enableSubPackages" value="true" />
+    </javaClientGenerator>
+
+    <!--指定表名和实体类名-->
+    <table tableName="sys_user" domainObjectName="SysUser"></table>
+
+2.开启驼峰命名
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+
+3.如果generatorConfig.xml配置文件没有放在resources文件夹下
+  Generator.java 需要修改 String genCfg = "/generatorConfig.xml";
